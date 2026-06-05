@@ -188,16 +188,3 @@ The MVP is designed so the next layer can feel like a real cloud gaming platform
 - Game session status: offline, launching, running, connected
 - Optional remote access with Tailscale or a TURN server
 
-## Resume Summary
-
-PocketStream demonstrates end-to-end cloud gaming fundamentals:
-
-- Built a browser-based cloud gaming MVP for streaming a Unity 2D platformer from a laptop to a mobile browser.
-- Implemented WebRTC video streaming, Socket.IO signaling, mobile touch input, and UDP-based Unity input relay.
-- Designed a low-end-hardware-friendly architecture that separates game execution, browser streaming, backend signaling, and Unity input handling.
-
-Example resume bullet:
-
-```text
-Built PocketStream, a Unity cloud gaming MVP that streams a PC-hosted 2D platformer to mobile browsers using WebRTC, React, Node.js, TypeScript, Socket.IO, and C#, with real-time touch input relayed into Unity over UDP.
-```
