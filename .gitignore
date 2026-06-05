@@ -1,0 +1,23 @@
+node_modules/
+dist/
+.vite/
+.env
+*.log
+
+# Unity generated files if you later place your game in this repo
+Library/
+Temp/
+Obj/
+Build/
+Builds/
+Logs/
+UserSettings/
+MemoryCaptures/
+*.csproj
+*.sln
+*.user
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
