@@ -19,9 +19,6 @@ export function HostScreen({ sessionId }: HostScreenProps) {
     const playerUrl = `${window.location.origin}/player?session=${encodeURIComponent(sessionId)}`;
     setShareUrl(playerUrl);
 
-    socket.connect();
-    socket.emit("session:join", { sessionId, role: "host" });
-
     socket.on("session:peer-ready", async () => {
       if (streamRef.current) {
         await createOffer();
@@ -32,18 +29,26 @@ export function HostScreen({ sessionId }: HostScreenProps) {
       const peer = peerRef.current;
       if (!peer) return;
 
-      if (payload.description) {
-        await peer.setRemoteDescription(payload.description);
-      }
+      try {
+        if (payload.description) {
+          await peer.setRemoteDescription(payload.description);
+        }
 
-      if (payload.candidate) {
-        await peer.addIceCandidate(payload.candidate);
+        if (payload.candidate) {
+          await peer.addIceCandidate(payload.candidate);
+        }
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "Unknown WebRTC error";
+        setStatus(`Signal failed: ${message}`);
       }
     });
 
     socket.on("input:frame", (packet) => {
       setLastInput(`move=${packet.moveX.toFixed(2)} jump=${packet.jump} attack=${packet.attack}`);
     });
+
+    socket.connect();
+    socket.emit("session:join", { sessionId, role: "host" });
 
     return () => {
       socket.off("session:peer-ready");
@@ -56,20 +61,30 @@ export function HostScreen({ sessionId }: HostScreenProps) {
   }, [sessionId]);
 
   async function startCapture() {
-    setStatus("Choose your Unity game window");
-    const stream = await navigator.mediaDevices.getDisplayMedia({
-      video: {
-        frameRate: { ideal: 30, max: 30 },
-        width: { ideal: 1280 },
-        height: { ideal: 720 }
-      },
-      audio: true
-    });
+    try {
+      if (!window.isSecureContext || !navigator.mediaDevices?.getDisplayMedia) {
+        setStatus("Screen capture needs Chrome/Edge on localhost or HTTPS");
+        return;
+      }
 
-    streamRef.current = stream;
-    attachStream(previewRef.current, stream);
-    setStatus("Capture ready");
-    await createOffer();
+      setStatus("Choose your Unity game window");
+      const stream = await navigator.mediaDevices.getDisplayMedia({
+        video: {
+          frameRate: { ideal: 30, max: 30 },
+          width: { ideal: 1280 },
+          height: { ideal: 720 }
+        },
+        audio: false
+      });
+
+      streamRef.current = stream;
+      attachStream(previewRef.current, stream);
+      setStatus("Capture ready");
+      await createOffer();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown capture error";
+      setStatus(`Capture failed: ${message}`);
+    }
   }
 
   async function createOffer() {
