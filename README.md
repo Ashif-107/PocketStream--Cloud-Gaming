@@ -4,6 +4,12 @@ PocketStream is a working MVP cloud gaming prototype that streams a Unity 2D pla
 
 The goal of the project is to demonstrate a practical, low-latency game streaming pipeline on low-end hardware using game development, real-time networking, browser APIs, and backend systems.
 
+
+
+https://github.com/user-attachments/assets/e94803e3-5300-4229-b472-f4df7ab0e149
+
+
+
 ## MVP Status
 
 PocketStream currently supports:
