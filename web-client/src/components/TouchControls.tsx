@@ -38,21 +38,23 @@ export function TouchControls({ sessionId }: TouchControlsProps) {
   return (
     <div className="controls-layer">
       <div className="move-pad" aria-label="Move controls">
-        <button  className="move-indicator" 
+        <button className="move-indicator"
+          aria-label="Move left"
           onPointerDown={() => setMove(-1)}
           onPointerUp={() => setMove(0)}
           onPointerCancel={() => setMove(0)}
           onPointerLeave={() => setMove(0)}
         >
-          <img src="/dist/assets/leftarrow.svg" alt="Left" className="arrow"/>
+          <span className="arrow arrow-left" />
         </button>
-        <button className="move-indicator" 
+        <button className="move-indicator"
+          aria-label="Move right"
           onPointerDown={() => setMove(1)}
           onPointerUp={() => setMove(0)}
           onPointerCancel={() => setMove(0)}
           onPointerLeave={() => setMove(0)}
         >
-          <img src="/dist/assets/rightarrow.svg" alt="Right" className="arrow"/>
+          <span className="arrow arrow-right" />
         </button>
       </div>
 

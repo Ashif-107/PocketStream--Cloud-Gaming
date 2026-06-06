@@ -16,7 +16,7 @@ export function HostScreen({ sessionId }: HostScreenProps) {
   const [lastInput, setLastInput] = useState("No input yet");
 
   useEffect(() => {
-    const playerUrl = `${window.location.origin}/player?session=${encodeURIComponent(sessionId)}`;
+    const playerUrl = `${window.location.origin}/launch?game=platformer`;
     setShareUrl(playerUrl);
 
     socket.on("session:peer-ready", async () => {
@@ -125,11 +125,11 @@ export function HostScreen({ sessionId }: HostScreenProps) {
     <main className="screen host-screen">
       <section className="top-bar">
         <div>
-          <p className="eyebrow">Host</p>
-          <h1>PocketStream</h1>
+          <p className="eyebrow">Host Dashboard</p>
+          <h1>Unity Platformer</h1>
         </div>
         <button className="primary-button" onClick={startCapture}>
-          Start capture
+          Start Stream
         </button>
       </section>
 
@@ -148,7 +148,7 @@ export function HostScreen({ sessionId }: HostScreenProps) {
             <strong>{sessionId}</strong>
           </div>
           <div>
-            <span>Player URL</span>
+            <span>Mobile launch URL</span>
             <code>{shareUrl}</code>
           </div>
           <div>
