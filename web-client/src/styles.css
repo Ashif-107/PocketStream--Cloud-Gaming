@@ -103,7 +103,7 @@ h1 {
 
 .library-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 300px));
   gap: 18px;
 }
 
@@ -123,21 +123,12 @@ h1 {
   background:
     linear-gradient(145deg, color-mix(in srgb, var(--accent) 42%, transparent), transparent 58%),
     repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0 2px, transparent 2px 18px),
-    #171d24;
+    #171d24;  
 }
 
-.game-art span {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 92px;
-  height: 92px;
-  border: 2px solid color-mix(in srgb, var(--accent) 75%, #ffffff);
-  border-radius: 8px;
-  color: #ffffff;
-  font-size: 3.4rem;
-  font-weight: 900;
-  object-fit: cover;
+.game-poster {
+  height: 100%;
+  object-fit: fit;
 }
 
 .game-copy {

@@ -20,10 +20,7 @@ export function GameLibrary() {
         {games.map((game) => (
           <article className="game-card" key={game.id} style={{ "--accent": game.accent } as CSSProperties}>
             <div className="game-art">
-              <span>
-
-                <img src={`../dist/assets/jelloman.png`} alt={`${game.title} cover art`} className="game-poster" />
-              </span>
+              <img src={`../dist/assets/jelloman.png`} alt={`${game.title} cover art`} className="game-poster" />
             </div>
             <div className="game-copy">
               <div>
