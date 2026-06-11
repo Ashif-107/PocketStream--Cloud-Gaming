@@ -47,6 +47,14 @@ export function HostScreen({ sessionId }: HostScreenProps) {
       setLastInput(`move=${packet.moveX.toFixed(2)} jump=${packet.jump} attack=${packet.attack}`);
     });
 
+    socket.on("connect", () => {
+      console.log("HOST CONNECTED", socket.id);
+    });
+
+    socket.on("connect_error", (err) => {
+      console.error("HOST CONNECT ERROR", err);
+    });
+    
     socket.connect();
     socket.emit("session:join", { sessionId, role: "host" });
 

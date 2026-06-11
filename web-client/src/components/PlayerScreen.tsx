@@ -78,6 +78,15 @@ export function PlayerScreen({ sessionId }: PlayerScreenProps) {
       socket.emit("ping:client", performance.now());
     }, 1000);
 
+    socket.on("connect", () => {
+      console.log("PLAYER CONNECTED", socket.id);
+    });
+
+    socket.on("connect_error", (err) => {
+      console.error("PLAYER CONNECT ERROR", err);
+    });
+
+    
     socket.connect();
     socket.emit("session:join", { sessionId, role: "player" });
 
