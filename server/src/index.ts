@@ -35,8 +35,13 @@ app.get("/health", (_request, response) => {
   });
 });
 
+io.engine.on("connection", (rawSocket) => {
+  console.log("[engine] transport connected", rawSocket.id);
+});
+
+
 io.on("connection", (socket) => {
-  console.log(`[socket] connected ${socket.id}`);
+  console.log("[socket] connected", socket.id);
 
   socket.on("session:join", (payload: JoinSessionPayload) => {
     socket.join(payload.sessionId);
