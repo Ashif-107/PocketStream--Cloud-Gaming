@@ -10,11 +10,11 @@ export interface GameCatalogItem {
 
 export const games: GameCatalogItem[] = [
   {
-    id: "platformer",
+    id: "jelloman",
     title: "JELLO MAN",
     subtitle: "2D action platformer",
     description: "Stream the laptop-hosted Unity build and control the player from this phone.",
-    sessionId: "platformer",
+    sessionId: "jelloman",
     status: "ready",
     accent: "#20d36b"
   }
