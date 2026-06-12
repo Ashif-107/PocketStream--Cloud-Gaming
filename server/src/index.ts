@@ -6,6 +6,8 @@ import { Server } from "socket.io";
 import { SessionStore } from "./sessionStore.js";
 import type { CloudInputPacket, JoinSessionPayload, SignalPayload } from "./types.js";
 import { UnityInputRelay } from "./unityInputRelay.js";
+import { launchGame, stopGame, isGameRunning } from "./gameLauncher.js";
+
 
 const port = Number(process.env.PORT ?? 3001);
 const clientOrigin = process.env.CLIENT_ORIGIN ?? "*";
@@ -73,6 +75,22 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     sessions.leave(socket.id);
     console.log(`[socket] disconnected ${socket.id}`);
+  });
+
+  socket.on("game:launch", () => {
+    launchGame();
+
+    socket.emit("game:status", {
+      running: isGameRunning()
+    });
+  });
+
+  socket.on("game:stop", () => {
+    stopGame();
+
+    socket.emit("game:status", {
+      running: false
+    });
   });
 });
 

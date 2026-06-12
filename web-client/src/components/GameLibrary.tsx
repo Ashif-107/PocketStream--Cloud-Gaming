@@ -1,10 +1,9 @@
 import type { CSSProperties } from "react";
 import { games } from "../gameCatalog";
+import { launchGame } from "../networking/game";
+
 
 export function GameLibrary() {
-  function launchGame(gameId: string) {
-    window.location.href = `/launch?game=${encodeURIComponent(gameId)}`;
-  }
 
   return (
     <main className="screen library-screen">

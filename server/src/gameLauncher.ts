@@ -1,0 +1,51 @@
+import { spawn, ChildProcess } from "child_process";
+
+let gameProcess: ChildProcess | null = null;
+
+export function isGameRunning() {
+  return gameProcess !== null;
+}
+
+export function launchGame() {
+  if (gameProcess) {
+    console.log("[game] already running");
+    return;
+  }
+
+  console.log("[game] launching Jelloman");
+
+  gameProcess = spawn(
+    "./jelloman.x86_64",
+    [],
+    {
+      cwd: "/home/ubuntu/games/jelloman",
+      env: {
+        ...process.env,
+        DISPLAY: ":99"
+      },
+      detached: false
+    }
+  );
+
+  gameProcess.stdout?.on("data", (data) => {
+    console.log(`[game] ${data}`);
+  });
+
+  gameProcess.stderr?.on("data", (data) => {
+    console.error(`[game-error] ${data}`);
+  });
+
+  gameProcess.on("exit", (code) => {
+    console.log(`[game] exited with code ${code}`);
+    gameProcess = null;
+  });
+}
+
+export function stopGame() {
+  if (!gameProcess) return;
+
+  gameProcess.kill();
+  gameProcess = null;
+
+  console.log("[game] stopped");
+}
