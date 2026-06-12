@@ -10,9 +10,6 @@ export class UnityInputRelay {
   ) { }
 
   send(packet: CloudInputPacket) {
-    console.log(
-      `[UDP] move=${packet.moveX} jump=${packet.jump} attack=${packet.attack}`
-    );
 
     const message = Buffer.from(JSON.stringify(packet));
 

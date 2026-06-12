@@ -45,10 +45,6 @@ io.engine.on("connection", (rawSocket) => {
 io.on("connection", (socket) => {
   console.log("[socket] connected", socket.id);
 
-  socket.onAny((event, ...args) => {
-    console.log("[EVENT]", event);
-  });
-
   socket.on("session:join", (payload: JoinSessionPayload) => {
     socket.join(payload.sessionId);
     sessions.join(payload.sessionId, { socketId: socket.id, role: payload.role });

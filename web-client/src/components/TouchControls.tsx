@@ -24,10 +24,6 @@ export function TouchControls({ sessionId }: TouchControlsProps) {
         attack: attackRef.current
       };
 
-      console.log("Sending input", packet);
-
-      console.log("socket connected?", socket.connected);
-
       socket.emit("input:frame", packet);
     }, 1000 / 30);
 
