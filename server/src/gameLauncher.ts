@@ -17,8 +17,7 @@ export function launchGame() {
     gameProcess = spawn(
         "./jelloman.x86_64",
         [
-            "-batchmode",
-            "-nographics",
+            "-force-opengl",
             "-logFile",
             "-"
         ],
@@ -26,7 +25,8 @@ export function launchGame() {
             cwd: "/home/ubuntu/games/jelloman",
             env: {
                 ...process.env,
-                DISPLAY: ":99"
+                DISPLAY: ":99",
+                LIBGL_ALWAYS_SOFTWARE: "1"
             },
             detached: false
         }
