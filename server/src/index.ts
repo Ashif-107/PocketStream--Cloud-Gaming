@@ -77,13 +77,15 @@ io.on("connection", (socket) => {
     console.log(`[socket] disconnected ${socket.id}`);
   });
 
-  socket.on("game:launch", () => {
-    launchGame();
+  socket.on("game:launch", (payload) => {
+  console.log("[game] launch request", payload);
 
-    socket.emit("game:status", {
-      running: isGameRunning()
-    });
+  launchGame();
+
+  socket.emit("game:status", {
+    running: isGameRunning()
   });
+});
 
   socket.on("game:stop", () => {
     stopGame();
