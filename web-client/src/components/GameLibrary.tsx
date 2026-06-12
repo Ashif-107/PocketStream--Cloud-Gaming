@@ -1,10 +1,18 @@
-import type { CSSProperties } from "react";
+import { useEffect, type CSSProperties } from "react";
 import { games } from "../gameCatalog";
 import { launchGame } from "../networking/game";
+import { socket } from "../networking/socket";
 
 
 export function GameLibrary() {
+  useEffect(() => {
+    socket.connect();
+    console.log("Library socket connected");
 
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
   return (
     <main className="screen library-screen">
       <section className="library-hero">
@@ -36,7 +44,7 @@ export function GameLibrary() {
         ))}
       </section>
 
-       <section className="library-hero">
+      <section className="library-hero">
         <div>
           <p className="library-subtitle">©️  Made by Ashif</p>
           <p className="library-subtitle">Github: Ashif-107</p>
