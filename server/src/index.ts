@@ -46,8 +46,8 @@ io.on("connection", (socket) => {
   console.log("[socket] connected", socket.id);
 
   socket.onAny((event, ...args) => {
-  console.log("[EVENT]", event);
-});
+    console.log("[EVENT]", event);
+  });
 
   socket.on("session:join", (payload: JoinSessionPayload) => {
     socket.join(payload.sessionId);
@@ -82,14 +82,14 @@ io.on("connection", (socket) => {
   });
 
   socket.on("game:launch", (payload) => {
-  console.log("[game] launch request", payload);
+    console.log("[game] launch request", payload);
 
-  launchGame();
+    launchGame();
 
-  socket.emit("game:status", {
-    running: isGameRunning()
+    socket.emit("game:status", {
+      running: isGameRunning()
+    });
   });
-});
 
   socket.on("game:stop", () => {
     stopGame();

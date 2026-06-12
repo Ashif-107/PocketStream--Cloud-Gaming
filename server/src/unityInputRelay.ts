@@ -7,9 +7,13 @@ export class UnityInputRelay {
   constructor(
     private readonly host: string,
     private readonly port: number
-  ) {}
+  ) { }
 
   send(packet: CloudInputPacket) {
+    console.log(
+      `[UDP] move=${packet.moveX} jump=${packet.jump} attack=${packet.attack}`
+    );
+
     const message = Buffer.from(JSON.stringify(packet));
 
     this.socket.send(message, this.port, this.host, (error) => {
