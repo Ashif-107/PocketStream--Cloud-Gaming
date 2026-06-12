@@ -9,6 +9,10 @@ export function GameLibrary() {
     socket.connect();
     console.log("Library socket connected");
 
+    setTimeout(() => {
+      window.location.href = "/player";
+    }, 1500);
+
     return () => {
       socket.disconnect();
     };
