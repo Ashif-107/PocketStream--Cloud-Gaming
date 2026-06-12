@@ -5,18 +5,24 @@ import { socket } from "../networking/socket";
 
 
 export function GameLibrary() {
+
   useEffect(() => {
     socket.connect();
     console.log("Library socket connected");
-
-    setTimeout(() => {
-      window.location.href = "/player";
-    }, 1500);
 
     return () => {
       socket.disconnect();
     };
   }, []);
+
+  const handlePlay = (gameId: string) => {
+    launchGame(gameId);
+
+    setTimeout(() => {
+      window.location.href = "/player";
+    }, 1500);
+  };
+
   return (
     <main className="screen library-screen">
       <section className="library-hero">
@@ -40,7 +46,7 @@ export function GameLibrary() {
                 <p>{game.subtitle}</p>
               </div>
               <p className="game-description">{game.description}</p>
-              <button className="primary-button play-button" onClick={() => launchGame(game.id)} disabled={game.status !== "ready"}>
+              <button className="primary-button play-button" onClick={() => handlePlay(game.id)} disabled={game.status !== "ready"}>
                 Play
               </button>
             </div>
