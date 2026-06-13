@@ -1,3 +1,4 @@
 export interface LaunchGamePayload {
-  gameId: string;
+  sessionId: string;
+  gameId?: string;
 }

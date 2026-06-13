@@ -8,6 +8,7 @@ import type { CloudInputPacket, JoinSessionPayload, SignalPayload } from "./type
 import { UnityInputRelay } from "./unityInputRelay.js";
 import { launchGame, stopGame, isGameRunning } from "./gameLauncher.js";
 
+import path from "path";
 
 const port = Number(process.env.PORT ?? 3001);
 const clientOrigin = process.env.CLIENT_ORIGIN ?? "*";
@@ -80,7 +81,7 @@ io.on("connection", (socket) => {
   socket.on("game:launch", (payload) => {
     console.log("[game] launch request", payload);
 
-    launchGame();
+    launchGame(payload.sessionId);
 
     socket.emit("game:status", {
       running: isGameRunning()
@@ -95,6 +96,11 @@ io.on("connection", (socket) => {
     });
   });
 });
+
+app.use(
+  "/stream",
+  express.static("/home/ubuntu/stream")
+);
 
 server.listen(port, "0.0.0.0", () => {
   console.log(`[server] listening on http://0.0.0.0:${port}`);

@@ -8,8 +8,8 @@ export interface JoinSessionPayload {
 export interface SignalPayload {
   sessionId: string;
   targetRole: ClientRole;
-  description?: RTCSessionDescriptionInit;
-  candidate?: RTCIceCandidateInit;
+  description?: any;
+  candidate?: any;
 }
 
 export interface CloudInputPacket {
@@ -20,3 +20,5 @@ export interface CloudInputPacket {
   jump: boolean;
   attack: boolean;
 }
+
+

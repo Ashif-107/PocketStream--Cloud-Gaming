@@ -6,20 +6,25 @@ export function isGameRunning() {
     return gameProcess !== null;
 }
 
-export function launchGame() {
+export function launchGame(sessionId: string) {
     if (gameProcess) {
-        console.log("[game] already running");
+        console.log(`[game] already running for session ${sessionId}`);
         return;
     }
 
-    console.log("[game] launching Jelloman");
+    console.log(`[game] launching Jelloman for session ${sessionId}`);
 
     gameProcess = spawn(
         "./jelloman.x86_64",
         [
             "-force-opengl",
             "-logFile",
-            "-"
+            "-",
+            "-sessionId",
+            sessionId,
+            "-signalingUrl",
+            process.env.SIGNALING_URL ??
+            "https://dcw765wncvs32.cloudfront.net/"
         ],
         {
             cwd: "/home/ubuntu/games/jelloman",
